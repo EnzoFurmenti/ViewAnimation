@@ -47,6 +47,18 @@ typedef enum
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    UIImage *imageStep1 = [UIImage imageNamed:@"step-1.png"];
+    UIImage *imageStep2 = [UIImage imageNamed:@"step-2.png"];
+    UIImage *imageStep3 = [UIImage imageNamed:@"step-3.png"];
+    UIImage *imageStep4 = [UIImage imageNamed:@"step-4.png"];
+    UIImage *imageStep5 = [UIImage imageNamed:@"step-5.png"];
+    NSArray *arrayImageSteps = [[NSArray alloc] initWithObjects:imageStep1,imageStep2,imageStep3,imageStep4,imageStep5,imageStep1,imageStep2,imageStep3,imageStep4,imageStep5,imageStep1,imageStep2,imageStep3,imageStep4,imageStep5,imageStep1,imageStep2,imageStep3,imageStep4,imageStep5,imageStep1,imageStep2,imageStep3,imageStep4,imageStep5, nil];
+    for (UIImageView *view in self.arrayCornerViews)
+    {
+        view.animationImages = arrayImageSteps;
+    }
+    
     // Do any additional setup after loading the view, typically from a nib.
 }
 
@@ -55,7 +67,7 @@ typedef enum
     [super viewDidAppear:animated];
     
     [self setCurrentAllCornerColorsWhithRandom:YES];
-    [UIView animateWithDuration:1.f
+    [UIView animateWithDuration:5.f
                           delay:0.f
                         options:UIViewAnimationOptionCurveEaseInOut
                      animations:^{
@@ -64,7 +76,7 @@ typedef enum
                      completion:^(BOOL finished) {
                          self.clockwise = 0;
                            [self setCurrentAllCornerColorsWhithRandom:NO];
-                            [UIView animateWithDuration:1.f delay:0.f options:UIViewAnimationOptionCurveEaseInOut | UIViewAnimationOptionBeginFromCurrentState animations:^{
+                            [UIView animateWithDuration:5.f delay:0.f options:UIViewAnimationOptionCurveEaseInOut | UIViewAnimationOptionBeginFromCurrentState animations:^{
                                 [self moveAllView];
                             } completion:^(BOOL finished) {
                                 NSLog(@"second animation finished");
@@ -220,8 +232,11 @@ typedef enum
         [self moveView:(UIView*)view];
     }
     
-    for (UIView *view in self.arrayCornerViews)
+    for (UIImageView *view in self.arrayCornerViews)
     {
+        view.animationDuration = 5.f;
+        view.animationRepeatCount = 1;
+        [view startAnimating];
         [self moveView:(UIView*)view];
     }
 }
